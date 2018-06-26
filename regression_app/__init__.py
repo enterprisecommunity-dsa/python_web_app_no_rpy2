@@ -4,7 +4,7 @@ from flask import Flask
 def create_app(test_config=None):
 	app = Flask(__name__, instance_relative_config = True)
 	app.config.from_mapping(
-		SECRET_KEY = 'dev'
+		SECRET_KEY = 'dev',
 		DATABASE=os.path.join(app.instance_path, 'regression_app.sqlite')
 	)
 	
@@ -22,5 +22,8 @@ def create_app(test_config=None):
 	def hello():
 		return 'Hello, World!'
 	
+	
+	from . import data_import
+	app.register_blueprint(data_import.bp)
 	
 	return app
