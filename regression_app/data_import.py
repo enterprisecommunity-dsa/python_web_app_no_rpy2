@@ -36,12 +36,17 @@ def view_results():
 	import pandas as pd
 	error = None
 	from . import linear_modeling_engine
+	from io import StringIO
 	
 	
+	#try:
+	file_like_obj = StringIO(session['dat'])
+	x = pd.read_csv(file_like_obj, header= None)
 	
-	try:
-		x = pd.DataFrame(session['dat'])
+	#except ParserError:
+		#return redirect(url_for('data_import.data_import'))
 	
-	except:
-		return redirect(url_for('data_import.data_import'))
+	coef = linear_modeling_engine.call_r(x)
+	return render_template('view_results.html')
+	
 	
