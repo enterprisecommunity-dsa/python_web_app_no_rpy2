@@ -18,7 +18,7 @@ def call_r(df):
     from rpy2.robjects import pandas2ri
     pandas2ri.activate()
     
-    with open('linear_modeler_function.R') as f:
+    with open('regression_app\linear_modeler_function.R') as f:
         str = f.read()
         
     mod = SignatureTranslatedAnonymousPackage(str, 'mod')
