@@ -1,1 +1,3 @@
 # python_web_app
+
+Creating a python web app built on the Django framework. First it will run locally, then migrate to a Heroku server.
