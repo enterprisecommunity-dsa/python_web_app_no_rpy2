@@ -6,15 +6,17 @@
 
 
 {% block content %}
-	<p>
+	{#<p>
 		If we have observations on independent variables 1,2,3 for people x,y,z, with an additional dependent 
 		variable observation 0, 
 		we want to input the data as: </br>
 		x_0, x_1, x_2, x_3 </br>
 		y_0, y_1, y_2, y_3 </br>
 		z_0, z_1, z_2, z_3 </br>
-	</p> 
+	</p>#}
+
 	
+	<p>Here are the coefficients of the regression
 	{% for b in coef %}
 		<p>{{ b }}</p>
 	{% endfor %}
