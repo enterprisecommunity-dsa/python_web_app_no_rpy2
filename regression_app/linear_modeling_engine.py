@@ -24,3 +24,15 @@ def call_r(df):
     mod = SignatureTranslatedAnonymousPackage(str, 'mod')
     a = mod.linear_modeler(df)
     return a
+	
+	
+def second_call_r(df):
+	import rpy2.robjects
+	from rpy2.robjects import pandas2ri
+	pandas2ri.activate()
+	robjects.globalenv['dataframe'] = dataframe
+	m = stats.lm('dataframe', data=base.as_symbol('dataframe'))
+	return m
+	
+	
+	

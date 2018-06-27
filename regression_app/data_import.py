@@ -31,22 +31,42 @@ def import_data():
 	
 	
 	
-@bp.route('/view_results', methods = ('GET', 'POST'))
+@bp.route('/view_results', methods = ('GET'))
 def view_results():
-	import pandas as pd
-	error = None
-	from . import linear_modeling_engine
-	from io import StringIO
+		from pandas import DataFrame, read_csv
+		error = None
+		from . import linear_modeling_engine
+		from io import StringIO
+		
+		
+		#try:
+		file_like_obj = StringIO(session['dat'])
+		del session['dat']
+		x = read_csv(file_like_obj, header= None)
+		
+		#except ParserError:
+			#return redirect(url_for('data_import.data_import'))
+		
+		coef = linear_modeling_engine.call_r(x)
+		cc = []
+		for i in coef:
+			cc.append(i)
+		
+		return render_template('view_results.html', coef=cc)
+		
+		
+		
+'''
+12,14,15,2
+0,7,4,2
+12,5,5,5
+1,2,3,4
+
+
+'''
+
+ 
+		
 	
-	
-	#try:
-	file_like_obj = StringIO(session['dat'])
-	x = pd.read_csv(file_like_obj, header= None)
-	
-	#except ParserError:
-		#return redirect(url_for('data_import.data_import'))
-	
-	coef = linear_modeling_engine.call_r(x)
-	return render_template('view_results.html')
 	
 	
