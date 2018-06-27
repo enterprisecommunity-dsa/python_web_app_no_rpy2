@@ -27,11 +27,11 @@ def import_data():
 			session['dat']=dat
 			return redirect(url_for('data_import.view_results'))
 		flash(error)
-	return render_template('data_import.html')
+	return render_template('data_import.html') 
 	
 	
 	
-@bp.route('/view_results', methods = ('GET'))
+@bp.route('/view_results', methods = ('GET',))
 def view_results():
 		from pandas import DataFrame, read_csv
 		error = None
@@ -40,7 +40,7 @@ def view_results():
 		
 		
 		#try:
-		file_like_obj = StringIO(session['dat'])
+		file_like_obj = StringIO(session['dat']) 
 		del session['dat']
 		x = read_csv(file_like_obj, header= None)
 		
@@ -48,7 +48,9 @@ def view_results():
 			#return redirect(url_for('data_import.data_import'))
 		
 		coef = linear_modeling_engine.call_r(x)
+		
 		cc = []
+		
 		for i in coef:
 			cc.append(i)
 		
@@ -56,6 +58,24 @@ def view_results():
 		
 		
 		
+def any_function_call():
+	return 0
+	
+		
+		
+def second_call_r(df):
+	import rpy2.robjects
+	#from rpy2.robjects import pandas2ri
+	from rpy2.robjects.packages import importr
+	stats = importr('stats')
+	base = importr('base')
+	'''
+	pandas2ri.activate()
+	rpy2.robjects.globalenv['dataframe'] = df
+	m = stats.lm('dataframe', data=base.as_symbol('dataframe'))
+	return m
+	'''
+	
 '''
 12,14,15,2
 0,7,4,2
@@ -65,7 +85,7 @@ def view_results():
 
 '''
 
- 
+  
 		
 	
 	

@@ -29,8 +29,11 @@ def call_r(df):
 def second_call_r(df):
 	import rpy2.robjects
 	from rpy2.robjects import pandas2ri
+	from rpy2.robjects.packages import importr
+	stats = importr('stats')
+	base = importr('base')
 	pandas2ri.activate()
-	robjects.globalenv['dataframe'] = dataframe
+	rpy2.robjects.globalenv['dataframe'] = df
 	m = stats.lm('dataframe', data=base.as_symbol('dataframe'))
 	return m
 	
