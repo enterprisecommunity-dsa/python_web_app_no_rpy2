@@ -1,1 +1,1 @@
-web: gunicorn regression_app --log-file -
+web: gunicorn regression_app.wsgi --log-file -
