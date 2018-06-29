@@ -1,7 +1,10 @@
 import os
 from flask import Flask
 
-def create_app(test_config=None):
+
+
+
+def create_app( test_config=None):
 	app = Flask(__name__, instance_relative_config = True)
 	app.config.from_mapping(
 		SECRET_KEY = 'dev',
@@ -21,12 +24,14 @@ def create_app(test_config=None):
 	@app.route('/hello')
 	def hello():
 		return 'Hello, World!'
-	
-	
+
+
 	from . import data_import
 	app.register_blueprint(data_import.bp)
 	
 	return app
 
 if __name__ == "__main__":
+	
+	app = create_app()
 	app.run()
