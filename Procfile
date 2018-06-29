@@ -1,1 +1,1 @@
-web: gunicorn regression_app:app
+web: gunicorn regression_app\__init__:app
