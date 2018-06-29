@@ -29,7 +29,8 @@ def create_app( test_config=None):
 	from . import data_import
 	app.register_blueprint(data_import.bp)
 	
-	return app
+	app.run()
+	#return app
 
 def app(*args, **kwargs):
 	app = create_app()
