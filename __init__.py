@@ -4,7 +4,7 @@ from flask import Flask
 
 
 
-def create_app( test_config=None):
+def create_app( test_config=None, *args, **kwargs):
 	app = Flask(__name__, instance_relative_config = True)
 	app.config.from_mapping(
 		SECRET_KEY = 'dev',
@@ -29,9 +29,18 @@ def create_app( test_config=None):
 	from . import data_import
 	app.register_blueprint(data_import.bp)
 	
-	app.run()
-	#return app
+	
+	return app
 
+'''
 def app(*args, **kwargs):
 	app = create_app()
 	app.run(*args, **kwargs)
+'''
+def app(environ, start_response):
+	b = create_app()
+	b.run()
+
+if __name__ == '__main__':
+	app = create_app()
+	app.run()

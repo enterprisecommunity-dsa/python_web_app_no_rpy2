@@ -1,1 +1,1 @@
-web: gunicorn __init__:create_app
+web: waitress-serve --call python_web_app_no_rpy2:create_app
