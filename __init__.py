@@ -27,3 +27,6 @@ def create_app(test_config=None):
 	app.register_blueprint(data_import.bp)
 	
 	return app
+
+if __name__ == "__main__":
+	app.run()
