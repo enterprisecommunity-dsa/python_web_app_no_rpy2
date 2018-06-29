@@ -31,6 +31,6 @@ def create_app( test_config=None):
 	
 	return app
 
-def app():
+def app(*args, **kwargs):
 	app = create_app()
-	app.run()
+	app.run(*args, **kwargs)
