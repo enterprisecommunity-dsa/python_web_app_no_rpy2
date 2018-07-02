@@ -1,1 +1,1 @@
-web: waitress-serve --call regression_app:create_app
+web: gunicorn regression_app:__init__
