@@ -41,6 +41,9 @@ def app(environ, start_response):
 	b = create_app()
 	b.run()
 
+	
+'''
 if __name__ == '__main__':
 	app = create_app()
 	app.run()
+'''
