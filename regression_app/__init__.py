@@ -3,7 +3,7 @@ from flask import Flask
 
 
 
-
+'''
 def create_app( test_config=None, *args, **kwargs):
 	app = Flask(__name__, instance_relative_config = True)
 	app.config.from_mapping(
@@ -31,19 +31,17 @@ def create_app( test_config=None, *args, **kwargs):
 	
 	
 	return app
-
 '''
-def app(*args, **kwargs):
-	app = create_app()
-	app.run(*args, **kwargs)
-'''
-def app(environ, start_response):
-	b = create_app()
-	b.run()
-
 	
-'''
+	
+app = Flask(__name__)
+app.config.from_mapping(
+		SECRET_KEY = 'dev',
+		DATABASE=os.path.join(app.instance_path, 'regression_app.sqlite')
+	)
+
+from . import data_import
+app.register_blueprint(data_import.bp)
+
 if __name__ == '__main__':
-	app = create_app()
 	app.run()
-'''
