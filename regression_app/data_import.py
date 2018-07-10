@@ -61,6 +61,18 @@ def view_results():
 		return redirect(url_for('data_import.import_data'))
 
   
+@bo.route('/upload', methods = ('GET', 'POST'))
+def upload_file():
+	if request.method == 'POST':
+		f = request.files['the_file']
+		file_string = f.read()
+		return redirect(url_for('data_import.view_file'), file_string = file_string)
+		
+	return render_template('upload_file.html')
+
+@bp.route('/view_files', methods = ('GET',))
+def view_files(file_string);
+	return render_template('view_files.html', file_string = file_string)
 		
 	
 	
