@@ -1,15 +1,20 @@
-def lm_output_printer(filename, csv=False):
+from flask import session
+def lm_output_printer(filename):
 	'''
 	Given a filename or relative file path, this function makes an explicit R
 	call and returns the printed summary of a linear model
 	'''
 
 	cmd = 'Rscript regression_app'
-	if csv:
+	fe = str(session['file_extension'])
+	fn = session['file_name_identifier']
+	if fe == 'csv':
 		cmd += '/csv_reader.R '
-	else:
+	elif fe == 'json':
 		cmd += '/json_reader.R '
-	cmd += filename
+	else:
+		return "{} file type is not supported. Please upload something else.".format(fe)
+	cmd += filename + ' ' + fn
 	import subprocess
 	s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, encoding='utf-8')
 

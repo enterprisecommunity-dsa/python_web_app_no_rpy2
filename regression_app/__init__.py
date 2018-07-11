@@ -48,6 +48,9 @@ app.register_blueprint(text_input.bp)
 from . import file_upload
 app.register_blueprint(file_upload.bp)
 
+from . import predict
+app.register_blueprint(predict.bp)
+
 @app.route('/', methods = ('GET',))
 def index():
 	return render_template('index.html')
