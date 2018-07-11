@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}File Upload{% endblock %}</h1>
+{% endblock %}
+
+
+{% block content %}
+	<p> Current supported filetypes are .csv and .json
+  <form method="post" enctype="multipart/form-data">
+    <input type="file" name="the_file">
+	<input type="submit" value="Upload">
+  </form>
+{% endblock %}

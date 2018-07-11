@@ -1,14 +1,21 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} - Enterprise DSA</title>
+{#<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">#}
 <nav>
   <h1>Enterprise DSA App</h1>
+  <u1>
+	<li><a href="{{ url_for('file_upload.upload_file') }}">New File Upload</a>
+	<li><a href="{{ url_for('text_entry.import_data') }}">New Text Entry</a>
+	</u1>
 </nav>
+
+  
 <section class="content">
-  <header>
-    {% block header %}{% endblock %}
-  </header>
-  {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
-  {% block content %}{% endblock %}
+	<header>
+		{% block header %}{% endblock %}
+	</header>
+	{% for message in get_flashed_messages() %}
+		<div class="flash">{{ message }}</div>
+	{% endfor %}
+	{% block content %}{% endblock %}
 </section>

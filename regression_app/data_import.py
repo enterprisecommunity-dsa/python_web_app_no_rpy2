@@ -1,5 +1,5 @@
 import functools
-
+import os
 from flask import (
 		Blueprint, 
 		flash,
@@ -10,10 +10,11 @@ from flask import (
 		session,
 		url_for
 		)
-	
-
+from werkzeug.utils import secure_filename
+from .file_reading_writing import lm_output_printer
 bp = Blueprint('data_import', __name__, url_prefix = '/')
-
+UPLOAD_FOLDER = 'C:/Users/omelia/python_web_app_no_rpy2/regression_app/uploads'
+UPLOADED_FILE = os.path.join(UPLOAD_FOLDER, 'current_upload')
 @bp.route('/', methods = ('GET', 'POST'))
 def import_data():
 	if request.method =='POST':
@@ -61,19 +62,33 @@ def view_results():
 		return redirect(url_for('data_import.import_data'))
 
   
-@bo.route('/upload', methods = ('GET', 'POST'))
+@bp.route('/upload', methods = ('GET', 'POST'))
 def upload_file():
 	if request.method == 'POST':
+		if 'the_file' not in request.files:
+			flash("Please upload a file")
+			return redirect(url_for('upload_file'))
+			
 		f = request.files['the_file']
-		file_string = f.read()
-		return redirect(url_for('data_import.view_file'), file_string = file_string)
+		if f.filename == '':
+			flash("No file selected")
+			return redirect(url_for('upload_file'))
+		if f:
+			filename = secure_filename(f.filename)
+			session['current_data_filename'] = filename
+			session['current_data_abs_path'] = os.path.join(UPLOAD_FOLDER, filename)
+			f.save(session['current_data_abs_path'])
+			return redirect(url_for('data_import.view_files'))
 		
-	return render_template('upload_file.html')
+	return render_template('file_upload.html')
 
 @bp.route('/view_files', methods = ('GET',))
-def view_files(file_string);
-	return render_template('view_files.html', file_string = file_string)
-		
+def view_files():
+	filename_string = str(session['current_data_abs_path'])
+	l = lm_output_printer(filename_string, csv=True)
+	line_list = l.split('\n')
+	
+	return render_template('regression_results.html', reg_output = line_list)
 	
 	
 	
