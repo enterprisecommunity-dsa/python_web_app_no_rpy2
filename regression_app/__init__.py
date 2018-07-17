@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 
 app = Flask(__name__)
 app.config.from_mapping(
@@ -9,6 +9,8 @@ app.config.from_mapping(
 		
 	)
 
+		
+		
 from . import text_input
 app.register_blueprint(text_input.bp)
 

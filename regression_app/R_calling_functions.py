@@ -1,8 +1,8 @@
 from flask import session
 def lm_output_printer():
 	'''
-	This must change. I am thinking it should pass a list of arguments to R, unless I can find a way
-	to pass the location of the temporary file created by Werkzeug. 
+	This takes arguments from the current Flask session object and runs a subprocess command of the form
+		"Rscript regression_app/<file type>_reader.R <Uploaded Data Absolute path> <Uploaded Data Filename w/out extension>"
 	'''
 
 	cmd = 'Rscript regression_app'
@@ -19,9 +19,12 @@ def lm_output_printer():
 	
 	cmd += filename + ' ' + fn
 	import subprocess
-	s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, encoding='utf-8')
-
-	return s.stdout
+	try:
+		s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, encoding='utf-8')
+	except subprocess.CalledProcessError:
+		return 1
+	else:
+		return s.stdout
 
 def parser(csv_text_string):
     '''

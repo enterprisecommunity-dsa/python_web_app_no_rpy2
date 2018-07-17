@@ -15,6 +15,14 @@ bp = Blueprint('text_entry', __name__, url_prefix = '/text_entry')
 
 @bp.route('/', methods = ('GET', 'POST'))
 def import_data():
+	'''
+	View which lets user input csv-formatted data into a text box. Calls savecsv_file_for_regression to save the 
+		text into regression_app/uploads/text_entry_data.csv and configure the session dictionary to point to the
+		new file. 
+	
+	If upload is successful, redirects to 'file_upload/view_regression'
+	
+	'''
 	if request.method =='POST':
 		dat = request.form['data']
 		
@@ -49,32 +57,8 @@ def save_csv_file_for_regression(csv_like_str):
 		f.write(csv_like_str)
 	session_config_status = configure_session_dict('text_entry_data.csv')
 	return session_config_status
-	'''
-	(file_name_identifier, file_extension) = find_file_extension('text_entry_data.csv')
-	session['current_file_extension'] = file_extension
-	session['current_file_name_no_extension'] = file_name_identifier
-	session['current_data_abs_path'] = os.path.join(UPLOAD_FOLDER, 'text_entry_data.csv')
-	session['current_data_filename'] = 'text_entry_data.csv'
-	'''
-	
+
 
 		
 		
 		
-'''
-Robots, Wheels, Worker Hours
-14, 32, 100
-1, 5, 12
-10, 31, 120
-13, 40, 110
-20, 40, 200
-
-
-Authors, Words, Books, Food, Whales
-12, 10, 5, .3, 13
-100, 123, .22, 1, 1
-1, 1, 0, 0, 0
-24, 70, .7, 123, 0
-55, 69, .44, 89, 122
-345, 44, .123, 12, 90
-'''
