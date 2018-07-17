@@ -1,19 +1,22 @@
 from flask import session
-def lm_output_printer(filename):
+def lm_output_printer():
 	'''
-	Given a filename or relative file path, this function makes an explicit R
-	call and returns the printed summary of a linear model
+	This must change. I am thinking it should pass a list of arguments to R, unless I can find a way
+	to pass the location of the temporary file created by Werkzeug. 
 	'''
 
 	cmd = 'Rscript regression_app'
-	fe = str(session['file_extension'])
-	fn = session['file_name_identifier']
+	
+	filename = str(session['current_data_abs_path'])
+	fe = str(session['current_file_extension'])
+	fn = session['current_file_name_no_extension']
 	if fe == 'csv':
 		cmd += '/csv_reader.R '
 	elif fe == 'json':
 		cmd += '/json_reader.R '
 	else:
 		return "{} file type is not supported. Please upload something else.".format(fe)
+	
 	cmd += filename + ' ' + fn
 	import subprocess
 	s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, encoding='utf-8')
@@ -37,4 +40,3 @@ def parser(csv_text_string):
             float_lst.append(float(i))
         dd[k] = float_lst
     return dd
-

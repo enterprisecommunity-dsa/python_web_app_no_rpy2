@@ -7,15 +7,19 @@
 
 {% block content %}
 	<p>
-		This app currently calculates the mean of a series of columns. So if you want to calculate the mean 
-		of observations x_1, x_2, x_3 and do the same for columns y and z, enter the data as </br>
-		x_1, y_1, z_1 </br>
-		x_2, y_2, z_2 </br>
-		x_3, y_3, z_3 </br>
+		This app currently takes text import formatted as a CSV with the dependent variable in the first column. 
+		So if we wanted to know about the number of number of new housing construction projects in a zip code given school proximity, library proximity, and average number of rainy days per year, we would input</br>
+		Construction Projects, School Proximity, Library Proximity, Rainy Days </br>
+		13, .5, 7, 66 </br>
+		10, 1.2, 1, 77 </br>
+		15, 1, .3, 10 </br>
+		20, 1, 5, 25 </br>
+		21, 4, .2, 20 </br>
+		9, 7, 2, 52 </br>
 	</p> 
   <form method="post">
     <label for="data">Data</label>
     <textarea name="data" id="data">{{ request.form['data'] }}</textarea>
-    <input type="submit" value="Find Column Means">
+    <input type="submit" value="Regression">
   </form>
 {% endblock %}

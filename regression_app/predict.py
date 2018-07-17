@@ -17,7 +17,7 @@ bp = Blueprint('predict', __name__, url_prefix = '/predict')
 
 @bp.route('/', methods = ('GET', 'POST'))
 def predict():
-	path_to_coef = os.path.join('regression_app/reg_results', '{}_coefficients.json'.format(session['file_name_identifier']))
+	path_to_coef = os.path.join('regression_app/reg_results', '{}_coefficients.json'.format(session['current_file_name_no_extension']))
 	with open(path_to_coef) as f:
 		coef_dict = json.load(f)
 	coef_list = list(coef_dict.items())
@@ -30,17 +30,22 @@ def predict():
 	session['coef_names'] = coef_names
 	session['intercept'] = coef_estimates.pop(0)
 	session['coef_estimates'] = coef_estimates
-
-	if request.method == 'GET':
-		return render_template('prediction_entry.html', 
+	
+	if request.method == 'POST':
+		list_of_inputs = []
+		error = ''
+		for i in coef_names:
+			if request.form[i] == '':
+				error += '{}, '.format(i)
+			list_of_inputs.append(request.form[i])
+		if error != '':
+			flash('The following inputs are needed: ' + error)
+		else:
+			session['list_of_inputs'] = list_of_inputs
+			return redirect(url_for('predict.show_results'))
+	return render_template('prediction_entry.html', 
 								coef_names = coef_names,
 								fn = session['current_data_filename'])
-	else:
-		list_of_inputs = []
-		for i in coef_names:
-			list_of_inputs.append(request.form[i])
-		session['list_of_inputs'] = list_of_inputs
-		return redirect(url_for('predict.show_results'))
 		
 @bp.route('/show_results', methods = ('GET',))
 def show_results():	

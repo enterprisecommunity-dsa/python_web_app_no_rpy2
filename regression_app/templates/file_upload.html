@@ -6,7 +6,9 @@
 
 
 {% block content %}
-	<p> Current supported file types are .csv and .json
+	<p> Current supported file types are .csv and .json. 
+	Text column headers are encouraged. The dependent variable must be the left-most column.
+	Remember that for a linear regression, we need at least as many rows as independent variables.
   <form method="post" enctype="multipart/form-data">
     <input type="file" name="the_file">
 	<input type="submit" value="Upload">
