@@ -23,13 +23,9 @@ def predict():
 		a list of coefficient estimates (estimated by the R process), and a list of user-given prediction inputs.
 	If the inputs are all present and posted, this redirects to 'predict/show_results'
 	'''
-	if session.get('current_file_name_no_extension'):
+	if session.get('coefficients_json'):
 		
-		path_to_coef = os.path.join('regression_app/reg_results', 
-									'{}_coefficients.json'.format(
-									session['current_file_name_no_extension']))
-		with open(path_to_coef) as f:
-			coef_dict = json.load(f)
+		coef_dict = session['coefficients_json']
 		coef_list = list(coef_dict.items())
 		coef_names = []
 		coef_estimates = []

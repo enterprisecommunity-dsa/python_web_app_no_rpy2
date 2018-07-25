@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Choose Dependent Variable{% endblock %}</h1>
+{% endblock %}
+
+
+{% block content %}
+	<p> Found the following coefficients from {{ fn }}
+	</p>
+	<form method="post"> 
+		<select name="selected_variable">
+			{% for i in coefficient_list %}
+			<option value="{{ i }}" required> {{ i }}</option>
+			{% endfor %}
+		</select>
+		<input type="submit" value="Select Option">
+	</form>
+{% endblock %}

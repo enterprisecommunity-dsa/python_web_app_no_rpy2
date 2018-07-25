@@ -38,6 +38,8 @@ return_formula<-function(dframe, dependent_var){
 print_lm<-function(dframe, form){
   model<-lm(form, data = dframe)
   print(summary(model))
+  library(rjson)
+  writeLines(toJSON(model$coefficients))
 }
 
 main<-function(x){

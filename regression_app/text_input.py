@@ -20,43 +20,26 @@ def import_data():
 		text into regression_app/uploads/text_entry_data.csv and configure the session dictionary to point to the
 		new file. 
 	
-	If upload is successful, redirects to 'file_upload/view_regression'
+	If upload is successful, redirects to 'file_upload/choose_coefficients'
 	
 	'''
 	if request.method =='POST':
-		dat = request.form['data']
+		data = request.form['data']
 		
 		error = None
 		
-		if not dat:
+		if not data:
 			error = 'Please input data.'
 		if error is None:
-			session_config_status = save_csv_file_for_regression(dat)
+			session['current_data'] = data
+			session_config_status = configure_session_dict('Text entry.csv')
 			if session_config_status == 0:
-				return redirect(url_for('file_upload.view_regression'))
+				return redirect(url_for('file_upload.choose_coefficients'))
 			else:
 				flash("There was an error uploading your data. Please upload something new")
 		flash(error)
 	return render_template('data_import.html') 
-	
-	
-	
-def save_csv_file_for_regression(csv_like_str):
-	'''
-	Inputs : csv_like_str: string with formatting like a csv.
-	
-	Function 	1. Writes the string to a file regression_app/uploads/text_entry_data.csv
-				2. Saves the appropriate fields in the session dictionary:
-					'current_file_extension'
-					'current_file_name_no_extension'
-					'current_data_abs_path'
-					'current_data_filename'
-	
-	'''
-	with open('regression_app/uploads/text_entry_data.csv', 'w') as f:
-		f.write(csv_like_str)
-	session_config_status = configure_session_dict('text_entry_data.csv')
-	return session_config_status
+
 
 
 		
