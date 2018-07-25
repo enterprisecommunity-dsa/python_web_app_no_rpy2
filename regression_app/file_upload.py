@@ -39,7 +39,8 @@ def upload_file():
 			session_configuration_status = configure_session_dict(secure_filename(f.filename))
 			
 			if session_configuration_status == 0:
-				f.save(session['current_data_abs_path'])
+#				f.save(session['current_data_abs_path'])
+				session['current_data'] = f.read()
 				return redirect(url_for('file_upload.view_regression'))
 			
 	return render_template('file_upload.html')
@@ -62,10 +63,10 @@ def configure_session_dict(file_name):
 	if file_extension not in ALLOWED_FILE_EXTENSIONS:
 			flash("Only .csv and .json files are currently supported")
 			return 1
-	session['current_file_extension'] = file_extension
-	session['current_file_name_no_extension'] = file_name_identifier
+#	session['current_file_extension'] = file_extension
+#	session['current_file_name_no_extension'] = file_name_identifier
 	session['current_data_filename'] = file_name
-	session['current_data_abs_path'] = os.path.join(UPLOAD_FOLDER, file_name)
+#	session['current_data_abs_path'] = os.path.join(UPLOAD_FOLDER, file_name)
 	
 	return 0
 
@@ -85,7 +86,7 @@ def view_regression():
 	'''
 	The view which gives the standard R regression summary output. Calls R_calling_functions.lm_output_printer to get the summary output string, then prints it. 
 	'''
-	if session.get('current_data_abs_path'):
+	if session.get('current_data'):
 		l = lm_output_printer()
 		if l == 1:
 			flash("There was a problem with the text entry. Please ensure it is formatted like a csv")
