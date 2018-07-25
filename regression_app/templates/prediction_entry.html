@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Prediction{% endblock %}</h1>
+{% endblock %}
+
+
+{% block content %}
+	<p> Enter data for predicting using the linear model created by {{ fn }}
+	</p>
+	<form method="post">
+		{% for i in coef_names %}
+		<label for={{ i }}>{{ i }}</label>
+		<textarea name={{ i }} id={{ i }}>{{ request.form[i] }}</textarea>
+		</br> 
+		{% endfor %}
+		<input type="submit" value="Predict">
+	</form>
+{% endblock %}
