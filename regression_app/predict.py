@@ -1,7 +1,6 @@
 import functools
 import os
 import json
-from numpy import array, dot
 from flask import (
 		Blueprint, 
 		flash,
