@@ -7,7 +7,7 @@ def lm_output_printer():
 	'''
 	
 	cmd = str(os.path.join(os.getcwd(), 'bin/Rscript'))
-	cmd = cmd + ' ' +str(os.path.join(os.getcwd(), '/regression_app/csv_reader_new.R'))
+	cmd = cmd + ' ' +str(os.path.join(os.getcwd(), 'app/regression_app/csv_reader_new.R')) + ' '
 	
 	# filename = str(session['current_data_abs_path'])
 	# fe = str(session['current_file_extension'])
