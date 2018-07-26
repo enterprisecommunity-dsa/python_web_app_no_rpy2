@@ -6,8 +6,8 @@ def lm_output_printer():
 		"Rscript regression_app/<file type>_reader.R <Uploaded Data Absolute path> <Uploaded Data Filename w/out extension>"
 	'''
 	
-	cmd = str(os.path.join(os.getcwd(), 'bin/Rscript'))
-	cmd = cmd + ' ' +str(os.path.join(os.getcwd(), '/regression_app/csv_reader_new.R')) + ' '
+	cmd = 'bin/Rscript'
+	cmd = cmd + ' ' '~/regression_app/csv_reader_new.R'+ ' '
 	
 	# filename = str(session['current_data_abs_path'])
 	# fe = str(session['current_file_extension'])
