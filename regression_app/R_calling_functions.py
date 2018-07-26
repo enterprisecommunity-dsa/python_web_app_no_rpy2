@@ -1,11 +1,12 @@
 from flask import session
+import os
 def lm_output_printer():
 	'''
 	This takes arguments from the current Flask session object and runs a subprocess command of the form
 		"Rscript regression_app/<file type>_reader.R <Uploaded Data Absolute path> <Uploaded Data Filename w/out extension>"
 	'''
-
-	cmd = 'bin/Rscript regression_app'
+	
+	cmd = str(os.path.join(os.getcwd(), 'bin/Rscript'))
 	
 	# filename = str(session['current_data_abs_path'])
 	# fe = str(session['current_file_extension'])
@@ -20,7 +21,8 @@ def lm_output_printer():
 	# cmd += filename + ' ' + fn
 	current_data_txt = session['current_data']
 	cmd_line_text = dict_to_command_line_string(csv_to_dict(current_data_txt))
-	cmd += '/csv_reader_new.R ' + session['current_dependent_variable']+ ' '+ cmd_line_text
+	cmd += str(os.path.join(os.getcwd(), '/csv_reader_new.R ')) 
+	cmd += session['current_dependent_variable']+ ' '+ cmd_line_text
 	
 	import subprocess
 	try:
