@@ -59,7 +59,7 @@ def predict():
 									coef_names = coef_names,
 									fn = session['current_data_filename'])
 	else:
-		return redirect(url_for('file_upload.upload_file'))
+		return redirect(url_for('index'))
 @bp.route('/show_results', methods = ('GET',))
 def show_results():
 	'''
@@ -85,7 +85,7 @@ def show_results():
 								est_list = session['coef_estimates']
 								)
 	else:
-		return redirect(url_for('file_upload.upload_file'))
+		return redirect(url_for('index'))
 	
 	
 	

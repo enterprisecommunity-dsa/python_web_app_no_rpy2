@@ -8,11 +8,11 @@
 {% block content %}
 	<p> Viewing results of regression on the file {{ fn }}
 	</p>
-	<p>
+	<pre>
 		{% for r in reg_output %}
 		{{ r }} </br>
 		{% endfor %}
-	</p>
+	</pre>
 	
 	<li><a href="{{ url_for('predict.predict') }}">Predict</a>
 {% endblock %}

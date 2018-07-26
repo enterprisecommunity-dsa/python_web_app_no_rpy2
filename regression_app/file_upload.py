@@ -13,7 +13,7 @@ from werkzeug.utils import secure_filename
 from .R_calling_functions import lm_output_printer
 bp = Blueprint('file_upload', __name__, url_prefix = '/file_upload')
 UPLOAD_FOLDER = 'C:/Users/omelia/python_web_app_no_rpy2/regression_app/uploads'
-ALLOWED_FILE_EXTENSIONS = set(["csv", "json"])
+ALLOWED_FILE_EXTENSIONS = set(["csv",])
 
 @bp.route('/', methods = ('GET', 'POST'))
 def upload_file():
@@ -40,33 +40,30 @@ def upload_file():
 			
 			if session_configuration_status == 0:
 #				f.save(session['current_data_abs_path'])
-				session['current_data'] = str(f.read())
+				a = f.read()
+				session['current_data'] = a.decode()
 				return redirect(url_for('file_upload.choose_coefficients'))
-			
-	return render_template('file_upload.html')
+	else:		
+		return render_template('file_upload.html')
 	
 
 	
 	
 def configure_session_dict(file_name):
 	'''
+	Ensures that the correct file extension (.csv) is being used
+	
 	Takes a file_name string and adds to the flask "session" dictionary object
-	the necessary fields to point to the current file:
-		'current_file_extension'
-		'current_file_name_no_extension'
-		'current_data_abs_path'
+	the necessary fields to point to the current file:'
 		'current_data_filename'
 	'''
-	from flask import session
-	session.permanent = False
+
 	(file_name_identifier, file_extension) = find_file_extension(file_name)
 	if file_extension not in ALLOWED_FILE_EXTENSIONS:
 			flash("Only .csv and .json files are currently supported")
 			return 1
-#	session['current_file_extension'] = file_extension
-#	session['current_file_name_no_extension'] = file_name_identifier
 	session['current_data_filename'] = file_name
-#	session['current_data_abs_path'] = os.path.join(UPLOAD_FOLDER, file_name)
+
 	
 	return 0
 
@@ -88,30 +85,41 @@ def choose_coefficients():
 	'''
 	This view populates a checklist from which users can choose one variable as the dependent variable. 
 	'''
-	coefficient_list = find_coefficients(session['current_data'])
-	if request.method == 'POST':
-		if request.form.get('selected_variable'):
-			session['current_dependent_variable'] = request.form['selected_variable']
-			return redirect(url_for('file_upload.view_regression'))
+	if session.get('current_data'):
+		coefficient_list, session['current_data'] = find_coefficients(session['current_data'])
+		if request.method == 'POST':
+			if request.form.get('selected_variable'):
+				session['current_dependent_variable'] = request.form['selected_variable']
+				return redirect(url_for('file_upload.view_regression'))
+		else:
+			flash("Please choose a variable")
+		
+		
+		return render_template('coefficient_selection.html',
+								coefficient_list = coefficient_list,
+								fn = session['current_data_filename'])
 	else:
-		flash("Please choose a variable")
-	
-	
-	return render_template('coefficient_selection.html',
-							coefficient_list = coefficient_list,
-							fn = session['current_data_filename'])
+		return redirect(url_for('index'))
 	
 	
 	
 def find_coefficients(csv_like_str):
 	'''
-	This is a helper function which takes the headers of the csv-like string and create a list of the column headers
+	This is a helper function which takes to standardize the formatting of the row of data headers
+	Inputs: csv_like_str : The uploaded data saved as a string. 
+	Returns:
+		coefficient_list : A list of strings of coefficient names
+		formatted_data : The string of data re-formatted to with the standardized headers 
 	'''
-	first_line = csv_like_str.split('\n')[0]
-	coefficient_list = first_line.split(',')
+	list_of_lines = csv_like_str.split("\n")
+	headers = list_of_lines.pop(0)
+	coefficient_list = headers.split(',')
 	for i in range(len(coefficient_list)):
 		coefficient_list[i] = coefficient_list[i].strip().replace(' ', '.')
-	return coefficient_list
+	formatted_headers = ','.join(coefficient_list)
+	list_of_lines.insert(0, formatted_headers)
+	formatted_data = '\n'.join(list_of_lines)
+	return coefficient_list, formatted_data
 	
 	
 @bp.route('/view_regression', methods = ('GET',))
@@ -134,7 +142,7 @@ def view_regression():
 			
 			return render_template('regression_results.html', reg_output = line_list, fn = session['current_data_filename'])
 		return redirect(url_for('file_upload.upload_file'))
-	
+	return redirect(url_for('index'))
 	
 	
 	

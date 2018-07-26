@@ -2,7 +2,6 @@
 # using the call main()
 
 x<-commandArgs(trailingOnly = TRUE)
-
 fill_data_frame <-function(x){
   # Takes a character vector formatted like the following:
   #   "Variable_A", "A_1", "A_2",..., "Variable_B", "B_1", "B_2", ... 

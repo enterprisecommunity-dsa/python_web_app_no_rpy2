@@ -21,6 +21,7 @@ def lm_output_printer():
 	current_data_txt = session['current_data']
 	cmd_line_text = dict_to_command_line_string(csv_to_dict(current_data_txt))
 	cmd += '/csv_reader_new.R ' + session['current_dependent_variable']+ ' '+ cmd_line_text
+	
 	import subprocess
 	try:
 		s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, encoding='utf-8')
@@ -46,7 +47,7 @@ def csv_to_dict(s):
 	for j in list_of_lines[1:]:
 		line_objs = j.split(',')
 		for k in range(len(line_objs)):
-			dd[nums_to_headers_dict[k]].append(line_objs[k])
+			dd[nums_to_headers_dict[k]].append(line_objs[k].strip())
 	return dd
         
 
