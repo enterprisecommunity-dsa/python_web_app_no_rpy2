@@ -11,7 +11,7 @@
 	<form method="post">
 		{% for i in coef_names %}
 		<label for={{ i }}>{{ i }}</label>
-		<textarea name={{ i }} id={{ i }}>{{ request.form[i] }}</textarea>
+		<textarea name={{ i }} id={{ i }} required>{{ request.form[i] }}</textarea>
 		</br> 
 		{% endfor %}
 		<input type="submit" value="Predict">
