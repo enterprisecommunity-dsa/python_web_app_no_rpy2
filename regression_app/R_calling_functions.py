@@ -6,8 +6,9 @@ def lm_output_printer():
 		"Rscript regression_app/<file type>_reader.R <Uploaded Data Absolute path> <Uploaded Data Filename w/out extension>"
 	'''
 	
-	#cmd = str(os.path.join(os.getcwd(), 'bin/Rscript'))
-	cmd = 'bin/Rscript ~/app/regression_app/csv_reader_new.R '
+	cmd = str(os.path.join(os.getcwd(), 'bin/Rscript'))
+	cmd = cmd + str(os.getcwd())
+	
 	# filename = str(session['current_data_abs_path'])
 	# fe = str(session['current_file_extension'])
 	# fn = session['current_file_name_no_extension']
@@ -22,7 +23,7 @@ def lm_output_printer():
 	current_data_txt = session['current_data']
 	cmd_line_text = dict_to_command_line_string(csv_to_dict(current_data_txt))
 	#cmd += ' ' + str(os.getcwd()) + '/regression_app/csv_reader_new.R ' 
-	cmd += session['current_dependent_variable']+ ' '+ cmd_line_text
+	#cmd += session['current_dependent_variable']+ ' '+ cmd_line_text
 	
 	import subprocess
 	try:
