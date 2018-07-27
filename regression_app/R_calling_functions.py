@@ -21,9 +21,8 @@ def lm_output_printer():
 	
 	# cmd += filename + ' ' + fn
 	current_data_txt = session['current_data']
-	cmd_line_text = dict_to_command_line_string(csv_to_dict(current_data_txt))
-	#cmd += ' ' + str(os.getcwd()) + '/regression_app/csv_reader_new.R ' 
-	cmd += session['current_dependent_variable']+ ' '+ cmd_line_text
+	cmd_line_text = dict_to_command_line_string(csv_to_dict(current_data_txt)) 
+	#cmd += session['current_dependent_variable']+ ' '+ cmd_line_text
 	
 	import subprocess
 	try:
