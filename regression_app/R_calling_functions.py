@@ -28,7 +28,11 @@ def lm_output_printer():
 	# try:
 	
 	s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, shell = True, encoding='utf-8')
-	output = s.stdout + s.stderr
+	output = ''
+	if s.stdout:
+		output += s.stdout
+	if s.stderr:
+		output += s.stderr 
 	return output
 		# s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, shell = True, encoding='utf-8')
 	# except subprocess.CalledProcessError:
