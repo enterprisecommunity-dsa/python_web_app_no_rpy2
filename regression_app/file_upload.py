@@ -26,20 +26,16 @@ def upload_file():
 	if request.method == 'POST':
 		if 'the_file' not in request.files:
 			flash("Please choose a file")
-			#return redirect(url_for('upload_file'))
 
 		else:
 			f = request.files['the_file']
-			#session['the_file'] = f 
 			
 			if f.filename == '':
 				flash("No file selected")
-				#return redirect(url_for('upload_file'))
 				
 			session_configuration_status = configure_session_dict(secure_filename(f.filename))
 			
 			if session_configuration_status == 0:
-#				f.save(session['current_data_abs_path'])
 				a = f.read()
 				session['current_data'] = a.decode()
 				return redirect(url_for('file_upload.choose_coefficients'))

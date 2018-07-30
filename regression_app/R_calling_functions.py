@@ -6,39 +6,19 @@ def lm_output_printer():
 		"Rscript regression_app/<file type>_reader.R <Uploaded Data Absolute path> <Uploaded Data Filename w/out extension>"
 	'''
 	
-	#cmd = 'bin/Rscript'
-	#cmd = cmd + ' ' '~/regression_app/csv_reader_new.R'+ ' '
 	cmd = 'bin/Rscript app/regression_app/csv_reader_new.R '
-	# filename = str(session['current_data_abs_path'])
-	# fe = str(session['current_file_extension'])
-	# fn = session['current_file_name_no_extension']
-	# if fe == 'csv':
-		# cmd += '/csv_reader.R '
-	# elif fe == 'json':
-		# cmd += '/json_reader.R '
-	# else:
-		# return "{} file type is not supported. Please upload something else.".format(fe)
-	
-	# cmd += filename + ' ' + fn
+
 	current_data_txt = session['current_data']
 	cmd_line_text = dict_to_command_line_string(csv_to_dict(current_data_txt)) 
 	cmd += session['current_dependent_variable']+ ' '+ cmd_line_text
 	
 	import subprocess
-	# try:
-	
-	s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, shell = True, encoding='utf-8')
-	output = ''
-	if s.stdout:
-		output += s.stdout
-	if s.stderr:
-		output += s.stderr 
-	return output
-		# s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, shell = True, encoding='utf-8')
-	# except subprocess.CalledProcessError:
-		# return 1
-	# else:
-		# return s.stdout
+	try:
+		s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, shell = True, encoding='utf-8')
+	except subprocess.CalledProcessError:
+		return 1
+	else:
+		return s.stdout
 
 	
 def csv_to_dict(s):
