@@ -1,1 +1,1 @@
-web: waitress-serve --port=$PORT regression_app.__init__:app
+web: gunicorn regression_app.__init__:app
