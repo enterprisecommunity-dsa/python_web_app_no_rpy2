@@ -8,7 +8,7 @@ def lm_output_printer():
 	
 	#cmd = 'bin/Rscript'
 	#cmd = cmd + ' ' '~/regression_app/csv_reader_new.R'+ ' '
-	cmd = 'ls .root/app'
+	cmd = 'bin/Rscript app/regression_app/csv_reader_new.R '
 	# filename = str(session['current_data_abs_path'])
 	# fe = str(session['current_file_extension'])
 	# fn = session['current_file_name_no_extension']
@@ -26,7 +26,7 @@ def lm_output_printer():
 	
 	import subprocess
 	try:
-		s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, encoding='utf-8')
+		s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, shell = True, encoding='utf-8')
 	except subprocess.CalledProcessError:
 		return 1
 	else:
