@@ -8,7 +8,7 @@ def lm_output_printer():
 	
 	#cmd = 'bin/Rscript'
 	#cmd = cmd + ' ' '~/regression_app/csv_reader_new.R'+ ' '
-	cmd = 'bin/Rscript app/regression_app/csv_reader_new.R'
+	cmd = 'bin/Rscript  app/regression_app/csv_reader_new.R'
 	# filename = str(session['current_data_abs_path'])
 	# fe = str(session['current_file_extension'])
 	# fn = session['current_file_name_no_extension']
