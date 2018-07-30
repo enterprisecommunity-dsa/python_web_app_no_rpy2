@@ -25,12 +25,16 @@ def lm_output_printer():
 	cmd += session['current_dependent_variable']+ ' '+ cmd_line_text
 	
 	import subprocess
-	try:
-		s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, shell = True, encoding='utf-8')
-	except subprocess.CalledProcessError:
-		return s.stderr
-	else:
-		return s.stdout
+	# try:
+	
+	s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, shell = True, encoding='utf-8')
+	output = s.stdout + s.stderr
+	return output
+		# s = subprocess.run(cmd, check = True, stdout=subprocess.PIPE, shell = True, encoding='utf-8')
+	# except subprocess.CalledProcessError:
+		# return 1
+	# else:
+		# return s.stdout
 
 	
 def csv_to_dict(s):
