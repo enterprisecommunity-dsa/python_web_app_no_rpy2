@@ -1,0 +1,21 @@
+1. .root/usr/bin/Rscript regression_app/csv_reader_new.R  NO
+
+2. .root/usr/bin/Rscript app/regression_app/csv_reader_new.R NO
+
+3. bin/Rscript app/regression_app/csv_reader_new.R NO
+
+	FileNotFoundError: [Errno 2] No such file or directory: 'bin/Rscript app/regression_app/csv_reader_new.R': 'bin/Rscript app/regression_app/csv_reader_new.R'
+
+4. .root/usr/bin/Rscript /app/regression_app/csv_reader_new.R
+
+	FileNotFoundError: [Errno 2] No such file or directory: '.root/usr/bin/Rscript /app/regression_app/csv_reader_new.R': '.root/usr/bin/Rscript /app/regression_app/csv_reader_new.R'
+
+5. bin/RRscript /app/regression_app/csv_reader_new.R NO (Obviously -- there is no wrapper script in bin/RRscript
+
+	FileNotFoundError: [Errno 2] No such file or directory: 'bin/RRscript /app/regression_app/csv_reader_new.R': 'bin/RRscript /app/regression_app/csv_reader_new.R'
+
+6. bin/Rscript
+
+	Found the Rscript command.
+
+7. bin/Rscript app/regression_app/csv_reader_new.r 

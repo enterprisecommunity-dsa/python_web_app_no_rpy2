@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Regression Results{% endblock %}</h1>
+{% endblock %}
+
+
+{% block content %}
+	<p> Viewing results of regression on the file {{ fn }}
+	</p>
+	<pre>
+		{% for r in reg_output %}
+		{{ r }} </br>
+		{% endfor %}
+	</pre>
+	
+	<li><a href="{{ url_for('predict.predict') }}">Predict</a>
+{% endblock %}
