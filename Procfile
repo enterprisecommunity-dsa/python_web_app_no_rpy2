@@ -1,1 +1,1 @@
-web: waitress-serve regression_app.__init__:app
+web: waitress-serve --port=$PORT regression_app.__init__:app
