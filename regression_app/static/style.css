@@ -1,0 +1,85 @@
+html { font-family: 'Open Sans', sans-serif; }
+body { max-width: 960px; margin: 10px 10px auto; background: white; align-items: center; }
+
+
+hr { border: none; border-top: 1px solid #DDE2E5; }
+u1  { align-items: left; 
+			display: flex ; 
+			margin: 5px; 
+			padding-left: 5px; 
+			background: #DDE2E5 }
+
+input[type="file"] { display: none; }
+
+form { display: flex; align-items: center ; padding-left: 5px ; margin: 5px ;}
+form > * { margin: 5px ; }
+
+.flash { font-family: 'Open Sans Condensed' ;
+		background: #FDF166 ;
+		font-size: 20px ; }
+
+.textform { display: block; 
+			margin: 5px ;
+			align-items: center ;}
+
+.headerbar{ background: white ; 
+			display: flex ; 
+			flex-direction: row ;  
+			align-items: center;  
+			padding: 5px ;  }
+			
+.headerbar > img { 
+	  margin: 5px;  }
+
+.headerbar > h1 { 
+	  flex:1 1 auto;
+	  text-align: bottom ; 
+	  margin: 5px;  
+	  color: #005A8B; }
+
+.linkbutton { border-radius: 4px;
+				font-family: 'Open Sans Condensed' ;
+				font-size: 16px; 
+				padding: 10px 10px; 
+				background-color: #DDE2E5;
+				border: none;}
+.linkbutton:hover { background-color: #0068AD; }
+				
+.submitbutton { border-radius: 4px;
+				font-family: 'Open Sans Condensed' ;
+				font-size: 16px; 
+				padding: 10px 10px; 
+				background-color: #0068AD;
+				border: none;}
+				
+.choosebutton { border-radius: 4px;
+				font-family: 'Open Sans Condensed' ;
+				font-size: 16px; 
+				padding: 10px 10px; 
+				background-color: #0068AD;
+				border: none ;}
+				
+.select-style {
+	font-family: 'Open Sans Condensed' ;
+	font-size: 12 px ; 
+	padding: 5px 5px ;
+    border: 1px solid #ccc;
+    width: 300px;
+    border-radius: 3px;
+    background: white ;
+	overflow: hidden ; 
+}
+
+.select-style select {
+    padding: 5px 8px;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
+}

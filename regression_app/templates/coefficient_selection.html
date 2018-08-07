@@ -6,14 +6,16 @@
 
 
 {% block content %}
-	<p> Found the following coefficients from {{ fn }}
+	<p> Found the following variables from {{ fn }}
 	</p>
 	<form method="post"> 
-		<select name="selected_variable">
-			{% for i in coefficient_list %}
-			<option value="{{ i }}" required> {{ i }}</option>
-			{% endfor %}
-		</select>
-		<input type="submit" value="Select Variable">
+		<div class="select-style">
+			<select name="selected_variable">
+				{% for i in coefficient_list %}
+				<option value="{{ i }}" required> {{ i }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<input class="choosebutton" type="submit" value="SELECT VARIABLE">
 	</form>
 {% endblock %}

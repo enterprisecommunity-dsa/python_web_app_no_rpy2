@@ -5,6 +5,7 @@
 3. bin/Rscript app/regression_app/csv_reader_new.R NO
 
 	FileNotFoundError: [Errno 2] No such file or directory: 'bin/Rscript app/regression_app/csv_reader_new.R': 'bin/Rscript app/regression_app/csv_reader_new.R'
+`	FileNotFoundError: [Errno 2] No such file or directory: 'bin/Rscript  app/regression_app/csv_reader_new.R': 'bin/Rscript  app/regression_app/csv_reader_new.R'
 
 4. .root/usr/bin/Rscript /app/regression_app/csv_reader_new.R
 
@@ -19,3 +20,9 @@
 	Found the Rscript command.
 
 7. bin/Rscript app/regression_app/csv_reader_new.r 
+
+	FileNotFoundError: [Errno 2] No such file or directory: 'bin/Rscript app/regression_app/csv_reader_new.r ': 'bin/Rscript app/regression_app/csv_reader_new.r '
+
+8. fakechroot fakeroot fakeroot /app./root app/regression_app/csv_reader_new.R
+
+	

@@ -39,6 +39,8 @@ def upload_file():
 				a = f.read()
 				session['current_data'] = a.decode()
 				return redirect(url_for('file_upload.choose_coefficients'))
+			else:
+				return render_template('file_upload.html')
 	else:		
 		return render_template('file_upload.html')
 	
@@ -56,7 +58,7 @@ def configure_session_dict(file_name):
 
 	(file_name_identifier, file_extension) = find_file_extension(file_name)
 	if file_extension not in ALLOWED_FILE_EXTENSIONS:
-			flash("Only .csv and .json files are currently supported")
+			flash("Only .csv files are currently supported")
 			return 1
 	session['current_data_filename'] = file_name
 
@@ -87,8 +89,8 @@ def choose_coefficients():
 			if request.form.get('selected_variable'):
 				session['current_dependent_variable'] = request.form['selected_variable']
 				return redirect(url_for('file_upload.view_regression'))
-		else:
-			flash("Please choose a variable")
+			else:
+				flash("Please choose a variable")
 		
 		
 		return render_template('coefficient_selection.html',
@@ -139,9 +141,3 @@ def view_regression():
 			return render_template('regression_results.html', reg_output = line_list, fn = session['current_data_filename'])
 		return redirect(url_for('file_upload.upload_file'))
 	return redirect(url_for('index'))
-	
-	
-	
-	
-	
-	

@@ -1,11 +1,24 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} - Enterprise DSA</title>
+
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:700" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
 <nav>
-  <h1>Enterprise DSA App</h1>
-  <u1>
-	<li><a href="{{ url_for('file_upload.upload_file') }}">New File Upload</a>
-	<li><a href="{{ url_for('text_entry.import_data') }}">New Text Entry</a>
-	</u1>
+	<div class="headerbar">
+		<img class="headeritem" src="{{ url_for('static', filename='enterprise_logo.jpg') }}">
+		<h1 class="headeritem">Data Science Web App</h1>
+		
+	</div>
+		<u1>
+			<form>
+				<input type="button" class="linkbutton" value="HOME" onclick="window.location.href='{{ url_for('index') }}'" />
+				<input type="button" class="linkbutton" value="NEW TEXT ENTRY" onclick="window.location.href='{{ url_for('text_entry.import_data') }}'" />
+				<input type="button" class="linkbutton" value="NEW FILE UPLOAD" onclick="window.location.href='{{ url_for('file_upload.upload_file') }}'" />
+			</form>
+		</u1>
+	
 </nav>
 
   
