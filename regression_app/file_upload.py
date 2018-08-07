@@ -26,22 +26,25 @@ def upload_file():
 	if request.method == 'POST':
 		if 'the_file' not in request.files:
 			flash("Please choose a file")
+			return render_template('file_upload.html')
 
 		else:
 			f = request.files['the_file']
+			#session['the_file'] = f 
 			
 			if f.filename == '':
 				flash("No file selected")
+				return render_template('file_upload.html')
 				
 			session_configuration_status = configure_session_dict(secure_filename(f.filename))
 			
 			if session_configuration_status == 0:
-				a = f.read()
-				session['current_data'] = a.decode()
+				f.save(session['current_data_filename'])
 				return redirect(url_for('file_upload.choose_coefficients'))
 	else:		
 		return render_template('file_upload.html')
 	
+
 
 	
 	
@@ -87,8 +90,8 @@ def choose_coefficients():
 			if request.form.get('selected_variable'):
 				session['current_dependent_variable'] = request.form['selected_variable']
 				return redirect(url_for('file_upload.view_regression'))
-		else:
-			flash("Please choose a variable")
+			else:
+				flash("Please choose a variable")
 		
 		
 		return render_template('coefficient_selection.html',

@@ -6,7 +6,7 @@ def lm_output_printer():
 		"Rscript regression_app/<file type>_reader.R <Uploaded Data Absolute path> <Uploaded Data Filename w/out extension>"
 	'''
 	
-	cmd = 'bin/Rscript app/regression_app/csv_reader_new.R '
+	cmd = 'Rscript regression_app/csv_reader_new.R '
 
 	current_data_txt = session['current_data']
 	cmd_line_text = dict_to_command_line_string(csv_to_dict(current_data_txt)) 
@@ -20,7 +20,58 @@ def lm_output_printer():
 	else:
 		return s.stdout
 
+
+
+
+def lm_output_printer_rpy2():
+	'''
+	This takes arguments from the current Flask session object and runs a subprocess command of the form
+		"Rscript regression_app/<file type>_reader.R <Uploaded Data Absolute path> <Uploaded Data Filename w/out extension>"
+	'''
+	import rpy2.robjects.packages as rpackages
+	from rpy2.robjects import (StrVector,
+								FloatVector,
+								DataFrame, 
+								IntVector,
+								Formula)
 	
+	base = rpackages.importr('base')
+	utils = rpackages.importr('utils')
+	stats = rpackages.importr('stats')
+	
+	current_df = utils.read_csv(session['current_data_filename'])
+	lin_model_object = stats.lm(current_df)
+	
+	####
+	#### Code is stopping here: AttributeError: 'ListVector' object has no attribute 'split'
+	####
+	
+	return(base.summary(lin_model_object))
+	
+
+
+		
+		
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+#################################################################################
+#####################    UNUSED CODE GOES BELOW    ##############################
+#################################################################################
+
+
+		
 def csv_to_dict(s):
 	'''
 	Takes csv-formatted string and returns a dictionary object which is formatted as one would expect a JSON 

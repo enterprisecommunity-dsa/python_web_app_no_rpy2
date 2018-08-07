@@ -8,11 +8,14 @@
 {% block content %}
 	<p> Viewing results of regression on the file {{ fn }}
 	</p>
+	<form>
+		<input type="button" class = "linkbutton" value="PREDICTION" onclick="window.location.href='{{ url_for('predict.predict') }}'" />
+	</form>
 	<pre>
 		{% for r in reg_output %}
 		{{ r }} </br>
 		{% endfor %}
 	</pre>
 	
-	<li><a href="{{ url_for('predict.predict') }}">Predict</a>
+	
 {% endblock %}
