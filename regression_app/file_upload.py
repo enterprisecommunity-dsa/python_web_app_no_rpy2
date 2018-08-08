@@ -26,7 +26,7 @@ def upload_file():
 	if request.method == 'POST':
 		if 'the_file' not in request.files:
 			flash("Please choose a file")
-
+			return render_template('file_upload.html')
 		else:
 			f = request.files['the_file']
 			
